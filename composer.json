@@ -10,8 +10,8 @@
   "license": "MIT",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://github.com/rmrevin/yii2-fontawesome/issues",
-    "source": "https://github.com/rmrevin/yii2-fontawesome"
+    "issues": "https://github.com/braunmar/simplecache/issues",
+    "source": "https://github.com/braunmar/simplecache"
   },
   "authors": [
     {
