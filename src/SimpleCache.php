@@ -1,7 +1,7 @@
 <?php
 
 /*
- * (c) Marek Braun
+ * (c) Marek Braun (braunmar)
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,8 @@ namespace braunmar\simple\cache;
 /**
  * Simple cache class. Avaliable format is php, json and bin.
  * 
- * See  <>
+ * See  https://github.com/braunmar/simplecache
+ * 
  *      // you can pass config in constructors
  *      $cache = new \braunmar\simple\cache\SimpleCache();
  * 
@@ -29,8 +30,8 @@ namespace braunmar\simple\cache;
  *      // load cache data
  *      $data = $cache->load();
  * 
- * This class is compatible with \braunmar\simple\classloader\ClassLoader.
- * See <>
+ * This class is used with \braunmar\simple\classloader\ClassLoader.
+ * See https://github.com/braunmar/classloader
  *      
  */
 class SimpleCache
@@ -109,7 +110,7 @@ class SimpleCache
         if (!in_array($this->type, self::TYPES)) {
             throw new \InvalidArgumentException('Bad save type.');
         }
-        
+
         if (!is_dir($this->path)) {
             throw new \InvalidArgumentException("Dir \"{$this->path}\" doesn't exist.");
         }
@@ -123,13 +124,9 @@ class SimpleCache
     {
         if ($this->type == self::TYPE_PHP) {
             $this->writeToFile($this->makePhpFile(var_export($data, true)));
-        }
-        
-        else if ($this->type == self::TYPE_JSON) {
+        } else if ($this->type == self::TYPE_JSON) {
             $this->writeToFile(json_encode($data, !$this->minify ? JSON_PRETTY_PRINT : 0));
-        }
-        
-        else if ($this->type == self::TYPE_SERIALIZE) {
+        } else if ($this->type == self::TYPE_SERIALIZE) {
             $this->writeToFile(serialize($data));
         }
     }
@@ -210,13 +207,14 @@ class SimpleCache
      * Set type
      * @param string $type Type
      * @return SimpleCache $this
+     * @throws \InvalidArgumentException Type not supported
      */
     public function setType($type)
     {
         if (!in_array($this->type, self::TYPES)) {
             throw new \InvalidArgumentException('Bad save type.');
         }
-        
+
         $this->type = $type;
 
         return $this;
@@ -292,30 +290,6 @@ class SimpleCache
     protected function makePhpFile($str)
     {
         return "<?php\nreturn " . $str . ";\n";
-    }
-    
-    /**
-     * Minimalize php string dump
-     * @param mixed $var Mixed to minimalize (only array avaliable)
-     * @param boolean $return If true, return result. If false given echo used instead
-     * @return string
-     */
-    protected function varExportMin($var, $return = false)
-    {
-        if (is_array($var)) {
-            $toImplode = [];
-            foreach ($var as $key => $value) {
-                $toImplode[] = var_export($key, true) . '=>' . $this->varExportMin($value, true);
-            }
-            $code = 'array(' . implode(',', $toImplode) . ')';
-            if ($return) {
-                return $code;
-            } else {
-                echo $code;
-            }
-        } else {
-            return var_export($var, $return);
-        }
     }
 
 }
