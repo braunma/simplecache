@@ -1,10 +1,9 @@
 <?php
 
-/*
- * (c) Marek Braun (braunmar)
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+/**
+ * @link https://github.com/braunmar/simplecache
+ * @copyright Copyright (c) 2016 Marek Braun
+ * @license https://github.com/braunmar/simplecache/blob/master/LICENSE
  */
 
 namespace braunmar\simple\cache;
@@ -12,10 +11,10 @@ namespace braunmar\simple\cache;
 /**
  * Simple cache class. Avaliable format is php, json and bin.
  * 
- * See  https://github.com/braunmar/simplecache
+ * See https://github.com/braunmar/simplecache
  * 
- *      // you can pass config in constructors
- *      $cache = new \braunmar\simple\cache\SimpleCache();
+ *      // you can pass config in constructor
+ *      $cache = new braunmar\simple\cache\SimpleCache();
  * 
  *      // config
  *      $cache->config([
@@ -30,7 +29,7 @@ namespace braunmar\simple\cache;
  *      // load cache data
  *      $data = $cache->load();
  * 
- * This class is used with \braunmar\simple\classloader\ClassLoader.
+ * This class is used with \raunmar\simple\classloader\ClassLoader.
  * See https://github.com/braunmar/classloader
  *      
  */
@@ -58,22 +57,10 @@ class SimpleCache
     const TYPES = [self::TYPE_PHP, self::TYPE_JSON, self::TYPE_SERIALIZE];
 
     /**
-     * Path to save dir. Default is to this class dir
-     * @var string
-     */
-    private $path;
-
-    /**
      * File name
      * @var string
      */
     private $filename = 'classCache';
-
-    /**
-     * Actual type for save format
-     * @var string
-     */
-    private $type = self::TYPE_PHP;
 
     /**
      * Set output to minify
@@ -81,6 +68,18 @@ class SimpleCache
      * @var boolean
      */
     private $minify = true;
+
+    /**
+     * Path to save dir. Default is to this class dir
+     * @var string
+     */
+    private $path;
+
+    /**
+     * Actual type for save format
+     * @var string
+     */
+    private $type = self::TYPE_PHP;
 
     /**
      * Constructor
@@ -101,7 +100,7 @@ class SimpleCache
     {
         foreach ($config as $key => $value) {
             if (!isset($this->{$key})) {
-                throw new \InvalidArgumentException("Parameter \"{$key}\" doesnt exist.");
+                throw new \InvalidArgumentException("Parameter \"{$key}\" doesn't exist.");
             }
 
             $this->{$key} = $value;
