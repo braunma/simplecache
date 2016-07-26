@@ -33,4 +33,4 @@ For full documentation see this link at [demos.braunmar.cz/simplecache](http://d
 Licence
 -------
 
-Class robot loader is under MIT licence. See the [LICENCE](https://github.com/braunmar/simplecache/blob/master/LICENSE) for details.
+Simplecache is under MIT licence. See the [LICENCE](https://github.com/braunmar/simplecache/blob/master/LICENSE) for details.
